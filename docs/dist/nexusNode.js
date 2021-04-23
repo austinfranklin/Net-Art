@@ -127,10 +127,9 @@ hub.io.sockets.on('connection', function(socket) {
     // hub.channel('tap', null, ["others", "display", "audio"]);
     
     hub.channel('moveAndPlay', null, null, function(data) {
+        console.log(data);
         socket.broadcast.emit('moveAndPlay', data);
     });
-
-
 
     console.log("On Connect socket id: ", socket.id);
     hub.onConnection(socket);
