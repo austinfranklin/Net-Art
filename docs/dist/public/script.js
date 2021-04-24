@@ -231,9 +231,14 @@ synth.volume.value = -12;
 // 	// Nexus-Hub stuff
 // channel
 hub.channel("moveAndPlay", null, null, function (data) {
-	// create another box
-	// user.id: create div object here
-	// set position
+	console.log('data: ', data);
+
+
+
+	data.user;
+	data.positionX;
+	data.positionY;
+	data.note;
 });
 
 // event send when people first enter their name and geo
@@ -248,11 +253,15 @@ entireBox.on("change", function () {
 		});
 	} else if (playNote == true) {
 		hub.send("moveAndPlay", {
-			note: true
+			note: true,
+			positionX: position.x,
+			positionY: position.y
 		});
 	} else {
 		hub.send("moveAndPlay", {
-			note: false
+			note: false,
+			positionX: position.x,
+			positionY: position.y
 		});
 	}
 });
