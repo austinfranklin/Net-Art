@@ -1,3 +1,19 @@
+let netArtBox = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 250 250" width="10%" height="10%" id="svg" transform="translate(0,0)">
+	<defs>
+		<clipPath id="boxPath">
+			<rect width="5%" height="3%" />
+		</clipPath>
+	</defs>
+	<g clip-path="url(#_clipPath_LSpHi2bqIWqMMeHYsNd6Lt2geyDjS5Z6)">
+		<rect id="box" x="15" y="59.286" width="70%" height="70%" transform="matrix(1,0,0,1,0,0)" fill="rgb(255,255,255)" />
+		<line x1="11" y1="11" x2="240" y2="11" />
+		<line x1="11" y1="11" x2="240" y2="11" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
+		<line x1="18.453" y1="241" x2="240" y2="241" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
+		<line x1="11" y1="11" x2="11" y2="241" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
+		<line x1="240" y1="21.411" x2="240" y2="241" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
+	</g>
+</svg>`
+
 // code for pop-up window at beginning
 const entireWindow = document.getElementById("entireWindow");
 const open = document.getElementById("open");
@@ -16,15 +32,15 @@ close.addEventListener("click", () => {
 	entireWindow.classList.remove("show");
 });
 
-// variable for entire svg object
-let entireBox;
-
 // code for getting user name, geo, and Id
 user = {
 	name: "",
 	geo: "",
 	id: ""
 };
+
+// varible for user svg object
+let entireBox = document.getElementById("svg");
 
 document.getElementById("close").onclick = function () {
 	user.name = document.getElementById("name").value;
@@ -44,8 +60,9 @@ document.getElementById("close").onclick = function () {
 	// give user a unique box and store that in container div
 	// how can I access id from inside script file? I need this to set color and other svg properties
 	document.getElementById("svg").id = user.id;
-	entireBox = document.getElementById(`${user.id}`).innerHTML = netArtBox;
-	document.getElementById("container").appendChild = entireBox;
+	document.getElementById(`${user.id}`).innerHTML = netArtBox;
+	entireBox = document.getElementById(`${user.id}`);
+	document.getElementById("container").appendChild(entireBox);
 };
 
 // then fill in values throughout and make sure it works
@@ -56,7 +73,7 @@ window.onkeydown = (e) => {
 	return !(e.keyCode == 32);
 };
 
-// set random colo for divs
+// set random color for divs
 function setColor(imageNumb) {
 	//color
 	let string = "0123456789ABCDEF".split("");
@@ -71,13 +88,10 @@ function setColor(imageNumb) {
 
 // sets color of fields on screen
 setColor(1);
-setColor(2);
-setColor(3);
-setColor(4);
-setColor(5);
-
-// entire svg variable
-//let entireBox = document.querySelector("#container");
+//setColor(2);
+// setColor(3);
+// setColor(4);
+// setColor(5);
 
 // just the colored box variable
 // how can I set color when loading from script?
@@ -96,31 +110,11 @@ color = `rgb(${r}%,${g}%,${b}%)`;
 let mouseState = false;
 
 // mouse down
-// entireBox.onmousedown = () => {
-// 	//console.log("down");
-// 	mouseState = true;
+entireBox.onmousedown = () => {
+	console.log("down");
+	mouseState = true;
 // 	myBox.style.fill = "#bbb";
-
-// box animation for mouse down
-/*
-	startAnimation();
-	function startAnimation() {
-		entireBox.animate(
-			{
-				width: "15%",
-				height: "15%"
-			},
-			{
-				duration: 100,
-				complete: (size = () => {
-					entireBox.style.width = "15%";
-					entireBox.style.height = "15%";
-				})
-			}
-		);
-	}
-	*/
-//};
+};
 
 // mouse pos variable
 position = {
@@ -144,17 +138,17 @@ onscroll = () => {
 };
 
 // drag box
-onmousemove = () => {
+onmousemove = (e) => {
 	if (mouseState) {
 		// get size in px of svg
 		let myWidth = entireBox.getBoundingClientRect().width;
 		let myHeight = entireBox.getBoundingClientRect().height;
-		//console.log("width: " + myWidth + " height: " + myHeight);
+		console.log("width: " + myWidth + " height: " + myHeight);
 
 		// mouse horizontal and vertical coordinates
-		position.x = event.clientX + scrollXOffset;
-		position.y = event.clientY + scrollYOffset;
-		//console.log(x, y);
+		position.x = e.clientX + scrollXOffset;
+		position.y = e.clientY + scrollYOffset;
+		console.log("posX: ", position.x, "posY: ", position.y);
 
 		// use mouse pos and offset by 1/2 size of svg
 		entireBox.style.left = `${position.x - myWidth / 2}px`;
@@ -163,11 +157,11 @@ onmousemove = () => {
 };
 
 // mouse up
-// entireBox.onmouseup = () => {
-// 	//console.log("up");
-// 	myBox.style.fill = color;
-// 	mouseState = false;
-// };
+entireBox.onmouseup = () => {
+	console.log("up");
+	//myBox.style.fill = color;
+	mouseState = false;
+};
 
 // spacebar to trigger synth and animation
 let playNote = false;
@@ -183,8 +177,8 @@ let triggerUp = (document.body.onkeydown = function (e) {
 let scale1 = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"];
 
 // space bar trigger note
-let triggerDown = (document.body.onkeyup = function (event) {
-	if (event.keyCode == 32) {
+let triggerDown = (document.body.onkeyup = function (e) {
+	if (e.keyCode == 32) {
 		// invert y pos to get low-high frequncy
 		//let frequency = window.innerHeight - y;
 
@@ -228,17 +222,38 @@ let triggerDown = (document.body.onkeyup = function (event) {
 const synth = new Tone.Synth().toDestination();
 synth.volume.value = -12;
 
-// 	// Nexus-Hub stuff
+// Nexus-Hub stuff
+
+// array for site users
+let users = [];
+// variable for users svg
+let usersSquare;
+
 // channel
 hub.channel("moveAndPlay", null, null, function (data) {
 	console.log('data: ', data);
 
+	// checks to see if user exists
+	// if no, then add user to array and create div to add to container
+	// is yes, update position
+	for (let i = 0; i < users.length; i++) {
+    	if (users[i] !== data.user) {
+			users.push(data.user);
+			var div = document.createElement('div');
+			div.id = data.user;
+			div.innerHTML = netArtBox;
+			document.getElementById("container").appendChild(div);
+			} else if (users[i] == data.user) {
+				usersSquare = document.getElementById(`${data.user}`);
+				usersSquare.style.top = data.positionY;
+				usersSquare.style.top = data.positionX;
+		}
+	}
 
-
-	data.user;
-	data.positionX;
-	data.positionY;
-	data.note;
+	// data.user;
+	// data.positionX;
+	// data.positionY;
+	// data.note;
 });
 
 // event send when people first enter their name and geo
