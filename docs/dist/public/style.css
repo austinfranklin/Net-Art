@@ -20,10 +20,6 @@
 	text-align: center;
 }
 
-#svg {
-	position: absolute;
-}
-
 .screen {
 	width: 100%;
 	height: 750px;

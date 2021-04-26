@@ -2,44 +2,46 @@
 <html lang="en" >
 
   <link rel="stylesheet" href="./style.css">
+
   <script type="javascript" src="./netArtBox.js"></script>
+  <script type="javascript" src="./browserHub.js"></script>
+  <script type="javascript" src="./script.js"></script>
 
 </head>
-<body>
-<!-- partial:index.partial.html -->
-<script type="javascript" src="https://austinfranklin.github.io/NetArt/script.js"></script>
-<script type="javascript" src="https://austinfranklin.github.io/NetArt/nexusNode.js"></script>
 
-<div class='entireWindow' id='entireWindow'>
-	<h1 class='text'>The WWWebchestra</h1>
-	<button id='open' class='open'>Enter</button>
-	<div class='popUp' id='popUp'>
-		<h2 class='text'>First, enter your info!</h2>
-		<h5 class='text'>(this information will be shown to others)</h5>
-		<p class='text'>
-			Name: <input type="text" id="name"><br><br></span> Location: <input type="text" id="geo"><br><br></span>
-		</p>
-		<p>
-			<button id="close">Begin</button>
-		</p>
+<body>
+
+	<div class='entireWindow' id='entireWindow'>
+		<h1 class='text'>The WWWebchestra</h1>
+		<button id='open' class='open'>Enter</button>
+		<div class='popUp' id='popUp'>
+			<h2 class='text'>First, enter your info!</h2>
+			<h5 class='text'>(this information will be shown to others)</h5>
+			<p class='text'>
+				Name: <input type="text" id="name"><br><br></span> Location: <input type="text" id="geo"><br><br></span>
+			</p>
+			<p>
+				<button id="close">Begin</button>
+			</p>
+		</div>
 	</div>
-</div>
 
-<body>
-	<p class='text' id='userInfo'>
-		My name is <span id="outputName">____</span>, and I live in <span id="outputLocation">____</span>.
-	</p>
+	<body>
+		<p class='text' id='userInfo'>
+			My name is <span id="outputName">____</span>, and I live in <span id="outputLocation">____</span>.
+		</p>
 
-	<div id='svg'></div>
-	<div id="container"></div>
+		<div class="users" id='svg'></div>
+		<div class="users" id="container"></div>
 
-	<div class="screen" id="image1"></div>
-	<!-- <div class="screen" id="image2"></div>
-	<div class="screen" id="image3"></div>
-	<div class="screen" id="image4"></div>
-	<div class="screen" id="image5"></div> -->
+		<div class="screen" id="image1"></div>
+		<!-- <div class="screen" id="image2"></div>
+		<div class="screen" id="image3"></div>
+		<div class="screen" id="image4"></div>
+		<div class="screen" id="image5"></div> -->
 
 </body>
+
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.13/Tone.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/basicscroll/3.0.4/basicScroll.min.js'></script><script  src="./script.js"></script>

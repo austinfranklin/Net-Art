@@ -1,18 +1,18 @@
-let netArtBox = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 250 250" width="10%" height="10%" id="svg" transform="translate(0,0)">
-	<defs>
-		<clipPath id="boxPath">
-			<rect width="5%" height="3%" />
-		</clipPath>
-	</defs>
-	<g clip-path="url(#_clipPath_LSpHi2bqIWqMMeHYsNd6Lt2geyDjS5Z6)">
-		<rect id="box" x="15" y="59.286" width="70%" height="70%" transform="matrix(1,0,0,1,0,0)" fill="rgb(255,255,255)" />
-		<line x1="11" y1="11" x2="240" y2="11" />
-		<line x1="11" y1="11" x2="240" y2="11" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
-		<line x1="18.453" y1="241" x2="240" y2="241" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
-		<line x1="11" y1="11" x2="11" y2="241" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
-		<line x1="240" y1="21.411" x2="240" y2="241" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
-	</g>
-</svg>`
+// let netArtBox = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 250 250" width="100%" height="100%" id="svg" transform="translate(0,0)">
+// 	<defs>
+// 		<clipPath id="boxPath">
+// 			<rect width="5%" height="3%" />
+// 		</clipPath>
+// 	</defs>
+// 	<g clip-path="url(#_clipPath_LSpHi2bqIWqMMeHYsNd6Lt2geyDjS5Z6)">
+// 		<rect id="box" x="15" y="59.286" width="70%" height="70%" transform="matrix(1,0,0,1,0,0)" fill="rgb(255,255,255)" />
+// 		<line x1="11" y1="11" x2="240" y2="11" />
+// 		<line x1="11" y1="11" x2="240" y2="11" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
+// 		<line x1="18.453" y1="241" x2="240" y2="241" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
+// 		<line x1="11" y1="11" x2="11" y2="241" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
+// 		<line x1="240" y1="21.411" x2="240" y2="241" vector-effect="non-scaling-stroke" stroke-width="3%" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
+// 	</g>
+// </svg>`
 
 // code for pop-up window at beginning
 const entireWindow = document.getElementById("entireWindow");
@@ -63,6 +63,9 @@ document.getElementById("close").onclick = function () {
 	document.getElementById(`${user.id}`).innerHTML = netArtBox;
 	entireBox = document.getElementById(`${user.id}`);
 	document.getElementById("container").appendChild(entireBox);
+	entireBox.style.position = "absolute";
+	entireBox.style.width = "10%";
+	entireBox.style.height = "10%";
 };
 
 // then fill in values throughout and make sure it works
@@ -141,6 +144,7 @@ onscroll = () => {
 onmousemove = (e) => {
 	if (mouseState) {
 		// get size in px of svg
+		entireBox.style.boxSizing = "content-box";
 		let myWidth = entireBox.getBoundingClientRect().width;
 		let myHeight = entireBox.getBoundingClientRect().height;
 		console.log("width: " + myWidth + " height: " + myHeight);
@@ -205,7 +209,7 @@ let triggerDown = (document.body.onkeyup = function (e) {
 
 		// get frequency based on mouse pos
 		Tone.start();
-		synth.triggerAttackRelease(frequency, "8n");
+		synth.triggerAttackRelease(frequency, "8n").connect(feedbackDelay);
 		console.log(frequency);
 	}
 });
@@ -219,6 +223,12 @@ let triggerDown = (document.body.onkeyup = function (e) {
 // 	}
 // });
 
+
+
+// feedback delay
+const feedbackDelay = new Tone.FeedbackDelay("8n", 0.5).toDestination();
+
+// synth
 const synth = new Tone.Synth().toDestination();
 synth.volume.value = -12;
 
@@ -228,6 +238,9 @@ synth.volume.value = -12;
 let users = [];
 // variable for users svg
 let usersSquare;
+
+const Hub = require("../js/hub");
+const hub = new Hub;
 
 // channel
 hub.channel("moveAndPlay", null, null, function (data) {
@@ -243,17 +256,13 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			div.id = data.user;
 			div.innerHTML = netArtBox;
 			document.getElementById("container").appendChild(div);
+			div.style.position = "absolute";
 			} else if (users[i] == data.user) {
 				usersSquare = document.getElementById(`${data.user}`);
 				usersSquare.style.top = data.positionY;
 				usersSquare.style.top = data.positionX;
 		}
 	}
-
-	// data.user;
-	// data.positionX;
-	// data.positionY;
-	// data.note;
 });
 
 // event send when people first enter their name and geo
@@ -268,6 +277,7 @@ entireBox.on("change", function () {
 		});
 	} else if (playNote == true) {
 		hub.send("moveAndPlay", {
+			user: user.id,
 			note: true,
 			positionX: position.x,
 			positionY: position.y
@@ -275,8 +285,7 @@ entireBox.on("change", function () {
 	} else {
 		hub.send("moveAndPlay", {
 			note: false,
-			positionX: position.x,
-			positionY: position.y
+			user: user.id
 		});
 	}
 });
