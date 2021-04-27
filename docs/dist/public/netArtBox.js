@@ -1,4 +1,4 @@
-let netArtBox = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 250 250" width="10%" height="10%" id="svg" transform="translate(0,0)">
+let netArtBox = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 250 250" width="100%" height="100%" id="svg" transform="translate(0,0)">
 	<defs>
 		<clipPath id="boxPath">
 			<rect width="5%" height="3%" />
