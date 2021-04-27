@@ -19,7 +19,7 @@ positions = {
 let entireBox = document.getElementById("svg");
 
 // variable for sample playback... number of total samples
-let samples = 37;
+let samples = 66;
 
 // variable for sample
 let whichSample = Math.floor(Math.random() * samples);
@@ -281,5 +281,34 @@ const players = new Tone.Players({
 	34: "https://austinfranklin.github.io/7746MediaRepo/samples/synth5.mp3",
 	35: "https://austinfranklin.github.io/7746MediaRepo/samples/tremDrone.mp3",
 	36: "https://austinfranklin.github.io/7746MediaRepo/samples/wind1.mp3",
-	37: "https://austinfranklin.github.io/7746MediaRepo/samples/wind2.mp3"
+	37: "https://austinfranklin.github.io/7746MediaRepo/samples/wind2.mp3",
+	38: "https://austinfranklin.github.io/7746MediaRepo/samples/ambientPiano.mp3",
+	39: "https://austinfranklin.github.io/7746MediaRepo/samples/bells.mp3",
+	40: "https://austinfranklin.github.io/7746MediaRepo/samples/cans.mp3",
+	41: "https://austinfranklin.github.io/7746MediaRepo/samples/echo1.mp3",
+	42: "https://austinfranklin.github.io/7746MediaRepo/samples/echo2.mp3",
+	43: "https://austinfranklin.github.io/7746MediaRepo/samples/echo3.mp3",
+	44: "https://austinfranklin.github.io/7746MediaRepo/samples/echo4.mp3",
+	45: "https://austinfranklin.github.io/7746MediaRepo/samples/echo5.mp3",
+	46: "https://austinfranklin.github.io/7746MediaRepo/samples/forest1.mp3",
+	47: "https://austinfranklin.github.io/7746MediaRepo/samples/glitch1.mp3",
+	48: "https://austinfranklin.github.io/7746MediaRepo/samples/glitch2.mp3",
+	49: "https://austinfranklin.github.io/7746MediaRepo/samples/harmonics1.mp3",
+	50: "https://austinfranklin.github.io/7746MediaRepo/samples/harmonics2.mp3",
+	51: "https://austinfranklin.github.io/7746MediaRepo/samples/harmonics3.mp3",
+	52: "https://austinfranklin.github.io/7746MediaRepo/samples/harmonics4.mp3",
+	53: "https://austinfranklin.github.io/7746MediaRepo/samples/harmonics5.mp3",
+	54: "https://austinfranklin.github.io/7746MediaRepo/samples/harmonics6.mp3",
+	55: "https://austinfranklin.github.io/7746MediaRepo/samples/harmonics9.mp3",
+	56: "https://austinfranklin.github.io/7746MediaRepo/samples/harmonics10.mp3",
+	57: "https://austinfranklin.github.io/7746MediaRepo/samples/nature3.mp3",
+	58: "https://austinfranklin.github.io/7746MediaRepo/samples/nature4.mp3",
+	59: "https://austinfranklin.github.io/7746MediaRepo/samples/perc1.mp3",
+	60: "https://austinfranklin.github.io/7746MediaRepo/samples/perc2.mp3",
+	61: "https://austinfranklin.github.io/7746MediaRepo/samples/perc3.mp3",
+	62: "https://austinfranklin.github.io/7746MediaRepo/samples/scary.mp3",
+	63: "https://austinfranklin.github.io/7746MediaRepo/samples/synthDrone.mp3",
+	64: "https://austinfranklin.github.io/7746MediaRepo/samples/synthLoop1.mp3",
+	65: "https://austinfranklin.github.io/7746MediaRepo/samples/synthLoop2.mp3",
+	66: "https://austinfranklin.github.io/7746MediaRepo/samples/synthLoop3.mp3",
 }).toDestination();
