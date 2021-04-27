@@ -38,9 +38,9 @@ document.getElementById("close").onclick = function () {
 	for (let i = 0; i < 8; i++) {
 		user.id += [Math.floor(Math.random() * 16)];
 	}
-	console.log(user.name);
-	console.log(user.geo);
-	console.log(user.id);
+	//console.log(user.name);
+	//console.log(user.geo);
+	//console.log(user.id);
 
 	document.getElementById("outputName").innerText = user.name;
 	document.getElementById("outputLocation").innerText = user.geo;
@@ -52,8 +52,8 @@ document.getElementById("close").onclick = function () {
 	entireBox = document.getElementById(`${user.id}`);
 	document.getElementById("container").appendChild(entireBox);
 	entireBox.style.position = "absolute";
-	entireBox.style.width = "8%";
-	entireBox.style.height = "8%";
+	entireBox.style.width = "10%";
+	entireBox.style.height = "10%";
 
 	const myGain = new Tone.Gain(normalize(positions.y/window.innerHeight, 0, 1)).toDestination();
 	const myPan = new Tone.Panner(normalize(positions.x/window.innerWidth, -1, 1)).toDestination();
@@ -204,6 +204,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
 
 			let div2 = document.createElement('div');
 			div2.innerHTML = "<span>" + data.name + "</span>, from <span>" + data.geo + "</span> has joined the group!";
+			div2.style.paddingTop = "5px";
 			document.getElementById("allUsers").appendChild(div2);
 
 			let gain = new Tone.Gain(0.25).toDestination();

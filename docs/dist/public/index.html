@@ -3,6 +3,7 @@
 
   <link rel="stylesheet" href="./style.css">
   <script type="text/javascript" src="netArtBox.js"></script>
+  <script type="text/javascript" src="instructions.js"></script>
   <script type="text/javascript" src="browserHub.js"></script>
   <script src="/socket.io/socket.io.js"></script>
 
@@ -11,23 +12,28 @@
 <body>
 
 	<div class='entireWindow' id='entireWindow'>
-		<h1 class='text'>The WWWebchestra</h1>
+		<h1 class='text' id="heading1">collaborative.soundscapes</h1>
 		<div>
-			<h2 class='text'>First, enter your info!</h2>
-			<h5 class='text'>(this information will be shown to others)</h5>
-			<p class='text'>
-				Name: <input type="text" id="name"><br><br></span> Location: <input type="text" id="geo"><br><br></span>
+			<p id="instructions">
+				collaborative.sounscapes is a net art installation that allows you to create soundscapes with anyone using just this webpage. The piece hopes to empower musicians and non-musicians alike to partake in the kind of community music making that COVID has sought to eliminate… only this time on an international scale. 
 			</p>
-			<p>
-				<button id="close">Begin</button>
-			</p>
+			<div id="input">
+				<h3 class='text' id="heading2">First, tell the world who you are!</h3>
+				<p class='text'>
+					Name: <input type="text" id="name"><br><br></span> Location: <input type="text" id="geo"><br><br></span>
+				</p>
+				<p>
+					<button id="close">Begin</button>
+				</p>
+			</div>
 		</div>
 	</div>
 
 	<div class='main' id="main">
+		<div class="users" id='allUsers'><span id="outputName">____</span>, from <span id="outputLocation">____</span> has joined the group!</div>
+		<div class='users' id='arrows'><img src="arrows.svg" width="100%" height="100%" opacity="65%"/></div>
 		<div class="users" id='svg'></div>
 		<div class="users" id="container"></div>
-		<div class="users" id='allUsers'><span id="outputName">____</span>, from <span id="outputLocation">____</span> has joined the group!</div>
 	</div>
 
 	<!-- partial -->
