@@ -43,7 +43,9 @@ hub.io.sockets.on('connection', function(socket) {
         // TODO: iterate through data and add these properties dynamically.
         // Can add any other pertinent details to the socket to be retrieved later
 
-        socket.username = typeof data.name !== 'undefined' ? data.name : "a_user";
+        socket.userId = typeof data.userId !== 'undefined' ? data.userId : "00000000";
+        socket.userName = typeof data.name !== 'undefined' ? data.name : "a_user";
+        socket.userGeo = typeof data.geo !== 'undefined' ? data.geo : "a_user";
         socket.userColor = typeof data.color !== 'undefined' ? data.color : "#CCCCCC";
         socket.userNote = typeof data.note !== 'undefined' ? data.note : " ";
         socket.userLocation = typeof data.location !== 'undefined' ? data.location : { x: 0.5, y: 0.5 };
@@ -95,15 +97,16 @@ hub.io.sockets.on('connection', function(socket) {
     socket.on('disconnect', function() {
         // hub.ioClients.remove(socket.id);	// FIXME: Remove client if they leave
         hub.log('SERVER: ' + socket.id + ' has left the building');
+        socket.broadcast.emit('logOff', {
+            userId: socket.userId,
+            userName: socket.userName,
+            userGeo: socket.userGeo
+        });
     });
 
     // **********************************************************
     //******** Model for most nexusHub interactions create a channel and a response you want to have happen
     // TODO: remove the need for the socket.broadcast.emit and uncomment the hub.transmit as the replacement.
-
-
-
-
 
     // define channel
     hub.channel('test', 'test', ['others'], function(data) {
@@ -117,11 +120,6 @@ hub.io.sockets.on('connection', function(socket) {
         hub.transmit('tap', null, data);
         //  socket.broadcast.emit('tap', data);  // just for others until a fix is made.
     });
-
-
-
-
-    
 
     // Don't use auto callback creation yet, it's not secure.
     // hub.channel('tap', null, ["others", "display", "audio"]);
