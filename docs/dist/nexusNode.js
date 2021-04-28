@@ -46,6 +46,7 @@ hub.io.sockets.on('connection', function(socket) {
         socket.userId = typeof data.userId !== 'undefined' ? data.userId : "00000000";
         socket.userName = typeof data.name !== 'undefined' ? data.name : "a_user";
         socket.userGeo = typeof data.geo !== 'undefined' ? data.geo : "a_user";
+        socket.userSample = typeof data.sample !== 'undefined' ? data.sample : "a_user";
         socket.userColor = typeof data.color !== 'undefined' ? data.color : "#CCCCCC";
         socket.userNote = typeof data.note !== 'undefined' ? data.note : " ";
         socket.userLocation = typeof data.location !== 'undefined' ? data.location : { x: 0.5, y: 0.5 };
@@ -100,7 +101,8 @@ hub.io.sockets.on('connection', function(socket) {
         socket.broadcast.emit('logOff', {
             userId: socket.userId,
             userName: socket.userName,
-            userGeo: socket.userGeo
+            userGeo: socket.userGeo,
+            userSample: socket.userSample
         });
     });
 

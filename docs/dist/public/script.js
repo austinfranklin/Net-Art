@@ -210,6 +210,7 @@ document.getElementById("close").onclick = function () {
 	hub.user.name = user.name;
 	hub.user.geo = user.geo;
 	hub.user.userId = user.id;
+	hub.user.sample = whichSample;
 	hub.register();
 };
 
@@ -379,6 +380,8 @@ hub.channel("logOff", null, null, function (data) {
 
 		let square = document.getElementById(data.userId);
 		square.remove();
+
+		players.player(data.userSample).stop();
 
 		let div3 = document.createElement('div');
 		div3.innerHTML = "<span>" + data.userName + "</span>, from <span>" + data.userGeo + "</span> has left!";
