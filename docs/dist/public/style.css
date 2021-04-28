@@ -1,5 +1,5 @@
 .entireWindow {
-	padding-top: 10%;
+	padding-top: 5%;
 	text-align: center;
 	pointer-events: auto;
 	display: block;
@@ -10,6 +10,11 @@
 .entireWindow.hide {
 	display: none;
 }
+
+#heading1 {
+	padding: 2%;
+}
+
 
 #heading2 {
 	padding: 2%;
