@@ -299,10 +299,10 @@ onmousemove = (e) => {
 		entireBox.style.top = `${positions.y - myHeight / 2}px`;
 
 		panners[user.id].pan.rampTo(scale(positions.x, 0, window.innerWidth, -1, 1), 0.1);
-		gainNode[user.id].gain.rampTo(scale(positions.y, 0, window.innerHeight, 0, 2), 0.1);
+		gainNode[user.id].gain.rampTo(scale(positions.y, 0, window.innerHeight, 0, 5), 0.1);
 
 		console.log("pan: " + scale(positions.x, 0, window.innerWidth, -1, 1));
-		console.log("volume: " + scale(positions.y, 0, window.innerHeight, 0, 2));
+		console.log("volume: " + scale(positions.y, 0, window.innerHeight, 0, 5));
 	}
 };
 
@@ -426,7 +426,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			usersSquare.style.top = `${data.positionY}px`;
 
 			panners[data.user].pan.rampTo(scale(positions.x, 0, window.innerWidth, -1, 1), 0.5);
-			gainNode[data.user].gain.rampTo(scale(positions.y, 0, window.innerHeight, 0, 10), 0.1);
+			gainNode[data.user].gain.rampTo(scale(positions.y, 0, window.innerHeight, 0, 5), 0.1);
 
 			// console.log("GAIN: " + data.positionY/window.innerHeight);
 			// console.log("PAN: " + data.positionX/window.innerWidth);
