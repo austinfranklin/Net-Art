@@ -140,7 +140,7 @@ const players = new Tone.Players({
 	138: "https://austinfranklin.github.io/NetArt/media2/sample138.mp3",
 	139: "https://austinfranklin.github.io/NetArt/media2/sample139.mp3",
 	140: "https://austinfranklin.github.io/NetArt/media2/sample140.mp3",
-	141: "https://austinfranklin.github.io/NetArt/media2/sampl141.mp3",
+	141: "https://austinfranklin.github.io/NetArt/media2/sample141.mp3",
 	142: "https://austinfranklin.github.io/NetArt/media2/sample142.mp3",
 	143: "https://austinfranklin.github.io/NetArt/media2/sample143.mp3",
 	144: "https://austinfranklin.github.io/NetArt/media2/sample144.mp3",
@@ -271,10 +271,10 @@ document.getElementById("close").onclick = function () {
 	whichSample = Math.floor(Math.random() * samples);
 
 	// users effects
-	const myGain = new Tone.Gain(0.25).toDestination();
-	const myFilter = new Tone.BiquadFilter(375, "lowpass").toDestination();
-	const myPan = new Tone.Panner(0).toDestination();
-	const myReverb = new Tone.JCReverb(0.45).toDestination();
+	const myGain = new Tone.Gain(-18).toDestination();
+	const myFilter = new Tone.BiquadFilter(5000, "lowpass");
+	const myPan = new Tone.Panner(0);
+	const myReverb = new Tone.JCReverb(0.45);
 
 	gainNode[user.id] = myGain;
 	lowPass[user.id] = myFilter;
@@ -282,7 +282,7 @@ document.getElementById("close").onclick = function () {
 	reverb[user.id] = myReverb;
 
 	players.player(whichSample).loop = true;
-	players.player(whichSample).connect(myGain).connect(myFilter).connect(myPan).connect(myReverb).start();
+	players.player(whichSample).connect(myGain).start();
 
 	hub.user.name = user.name;
 	hub.user.geo = user.geo;
@@ -346,14 +346,45 @@ onmousemove = (e) => {
 		entireBox.style.left = `${(positions.x - (window.innerWidth / 5)) - myWidth / 2}px`;
 		entireBox.style.top = `${positions.y - myHeight / 2}px`;
 
-		gainNode[user.id].gain.rampTo(scale(positions.y, 0, window.innerHeight, 0, 0.5), 0.1);
-		panners[user.id].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 0.1);
-		reverb[user.id].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 0.9), 0.1);
-		lowPass[user.id].frequency.rampTo(scale(positions.y, 0, window.innerHeight, 0, 750), 0.1);
+		// set gain
+		if (scale(positions.y, 0, window.innerHeight, -24, -12) < -24) {
+			gainNode[user.id].gain.value = -24;
+		} else if (scale(positions.y, 0, window.innerHeight, -24, -12) > -12) {
+			gainNode[user.id].gain.value = -12;
+		} else {
+			gainNode[user.id].gain.rampTo(scale(positions.y, 0, window.innerHeight, -24, -12), 0.1);
+		}
 
-		console.log("volume: " + scale(positions.y, 0, window.innerHeight, 0, 0.9));
-		console.log("pan & reverb: " + scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1));
-		console.log("cutoff: " + scale(positions.y, 0, window.innerHeight, 0, 750));
+		// set filter cutoff
+		if (scale(positions.y, 0, window.innerHeight, 250, 10000) < 250) {
+			lowPass[user.id].frequency.value = 250;
+		} else if (scale(positions.y, 0, window.innerHeight, 250, 10000) > 10000) {
+			lowPass[user.id].frequency.value = 10000;
+		} else {
+			lowPass[user.id].frequency.rampTo(scale(positions.y, 0, window.innerHeight, 250, 10000), 0.1);
+		}
+
+		// set pan
+		if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1) < -1) {
+			panners[user.id].pan.value = -1;;
+		} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1) > 1) {
+			panners[user.id].pan.value = 1;
+		} else {
+			panners[user.id].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 0.1);
+		}
+
+		// set reverb
+		if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 0.9) < 0) {
+			reverb[user.id].roomSize.value = 0;
+		} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 0.9) > 1) {
+			reverb[user.id].roomSize.value = 0.9;
+		} else {
+			reverb[user.id].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 0.9), 0.1);
+		}
+
+		console.log("volume: " + gainNode[user.id].gain.value);
+		console.log("pan & reverb: " + panners[user.id].pan.value);
+		console.log("cutoff: " + lowPass[user.id].frequency.value);
 
 		// console.log(container.clientHeight);
 		// console.log(container.clientWidth);
@@ -455,10 +486,10 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			div2.style.borderBottom = "1px solid black";
 			document.getElementById("textBox").prepend(div2);
 
-			let gain = new Tone.Gain(0.25).toDestination();
+			let gain = new Tone.Gain(-18).toDestination();
 			let pan = new Tone.Panner(0).toDestination();
 			let reverb = new Tone.JCReverb(0.45).toDestination();
-			let filter = new Tone.BiquadFilter(375, "lowpass").toDestination();
+			let filter = new Tone.BiquadFilter(5000, "lowpass").toDestination();
 			panners[data.user] = pan;
 			gainNode[data.user] = gain;
 			reverb[data.user] = reverb;
@@ -482,14 +513,46 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			usersSquare.style.top = `${data.positionY}px`;
 
 			let container = document.getElementById("container");
-			gainNode[data.user].gain.rampTo(scale(positions.y, 0, window.innerHeight, 0, 0.5), 0.1);
-			panners[data.user].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 0.1);
-			reverb[data.user].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 0.9), 0.1);
-			filter[data.user].frequency.rampTo(scale(positions.y, 0, window.innerHeight, 0, 750), 0.1);
 
-			// console.log("volume: " + scale(positions.y, 0, window.innerHeight, 0, 0.9));
-			// console.log("pan + reverb: " + scale(positions.x, 0, container.clientWidth, 0, 1));
-			// console.log("cutoff: " + scale(positions.y, 0, window.innerHeight, 0, 750));
+			// set gain
+			if (scale(positions.y, 0, window.innerHeight, -24, -12) < -24) {
+				gainNode[data.user].gain.value = -24;
+			} else if (scale(positions.y, 0, window.innerHeight, -24, -12) > -12) {
+				gainNode[data.user].gain.value = -12;
+			} else {
+				gainNode[data.user].gain.rampTo(scale(positions.y, 0, window.innerHeight, -24, -12), 0.1);
+			}
+
+			// set filter cutoff
+			if (scale(positions.y, 0, window.innerHeight, 250, 10000) < 250) {
+				filter[data.user].frequency.value = 250;
+			} else if (scale(positions.y, 0, window.innerHeight, 250, 10000) > 10000) {
+				filter[data.user].frequency.value = 10000;
+			} else {
+				filter[data.user].frequency.rampTo(scale(positions.y, 0, window.innerHeight, 250, 10000), 0.1);
+			}
+
+			// set pan
+			if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1) < -1) {
+				panners[data.user].pan.value = -1;;
+			} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1) > 1) {
+				panners[data.user].pan.value = 1;
+			} else {
+				panners[data.user].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 0.1);
+			}
+
+			// set reverb
+			if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 0.9) < 0) {
+				reverb[data.user].roomSize.value = 0;
+			} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 0.9) > 1) {
+				reverb[data.user].roomSize.value = 0.9;
+			} else {
+				reverb[data.user].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 0.9), 0.1);
+			}
+
+			// console.log("volume: " + gainNode[data.user].gain.value);
+			// console.log("pan + reverb: " + panners[data.user].pan.value);
+			// console.log("cutoff: " + filter[data.user].frequency.value);
 	}
 });
 
