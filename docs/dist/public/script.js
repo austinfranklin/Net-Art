@@ -99,96 +99,66 @@ const players = new Tone.Players({
 	97: "https://austinfranklin.github.io/NetArt/media/sample97.mp3",
 	98: "https://austinfranklin.github.io/NetArt/media/sample98.mp3",
 	99: "https://austinfranklin.github.io/NetArt/media/sample99.mp3",
-	100: "https://austinfranklin.github.io/NetArt/media/sample100.mp3",
-	101: "https://austinfranklin.github.io/NetArt/media/sample101.mp3",
-	102: "https://austinfranklin.github.io/NetArt/media/sample102.mp3",
-	103: "https://austinfranklin.github.io/NetArt/media/sample103.mp3",
-	104: "https://austinfranklin.github.io/NetArt/media/sample104.mp3",
-	105: "https://austinfranklin.github.io/NetArt/media/sample105.mp3",
-	106: "https://austinfranklin.github.io/NetArt/media/sample106.mp3",
-	107: "https://austinfranklin.github.io/NetArt/media/sample107.mp3",
-	108: "https://austinfranklin.github.io/NetArt/media/sample108.mp3",
-	109: "https://austinfranklin.github.io/NetArt/media/sample109.mp3",
-	110: "https://austinfranklin.github.io/NetArt/media/sample110.mp3",
-	111: "https://austinfranklin.github.io/NetArt/media/sample111.mp3",
-	112: "https://austinfranklin.github.io/NetArt/media/sample112.mp3",
-	113: "https://austinfranklin.github.io/NetArt/media/sample113.mp3",
-	114: "https://austinfranklin.github.io/NetArt/media/sample114.mp3",
-	115: "https://austinfranklin.github.io/NetArt/media/sample115.mp3",
-	116: "https://austinfranklin.github.io/NetArt/media/sample116.mp3",
-	117: "https://austinfranklin.github.io/NetArt/media/sample117.mp3",
-	118: "https://austinfranklin.github.io/NetArt/media/sample118.mp3",
-	119: "https://austinfranklin.github.io/NetArt/media/sample119.mp3",
-	120: "https://austinfranklin.github.io/NetArt/media/sample120.mp3",
-	121: "https://austinfranklin.github.io/NetArt/media/sample121.mp3",
-	122: "https://austinfranklin.github.io/NetArt/media/sample122.mp3",
-	123: "https://austinfranklin.github.io/NetArt/media/sample123.mp3",
-	124: "https://austinfranklin.github.io/NetArt/media/sample124.mp3",
-	125: "https://austinfranklin.github.io/NetArt/media/sample125.mp3",
-	126: "https://austinfranklin.github.io/NetArt/media/sample126.mp3",
-	127: "https://austinfranklin.github.io/NetArt/media/sample127.mp3",
-	128: "https://austinfranklin.github.io/NetArt/media/sample128.mp3",
-	129: "https://austinfranklin.github.io/NetArt/media/sample129.mp3",
-	130: "https://austinfranklin.github.io/NetArt/media/sample130.mp3",
-	131: "https://austinfranklin.github.io/NetArt/media/sample131.mp3",
-	132: "https://austinfranklin.github.io/NetArt/media/sample132.mp3",
-	133: "https://austinfranklin.github.io/NetArt/media/sample133.mp3",
-	134: "https://austinfranklin.github.io/NetArt/media/sample134.mp3",
-	135: "https://austinfranklin.github.io/NetArt/media/sample135.mp3",
-	136: "https://austinfranklin.github.io/NetArt/media/sample136.mp3",
-	137: "https://austinfranklin.github.io/NetArt/media/sample137.mp3",
-	138: "https://austinfranklin.github.io/NetArt/media/sample138.mp3",
-	139: "https://austinfranklin.github.io/NetArt/media/sample139.mp3",
-	140: "https://austinfranklin.github.io/NetArt/media/sample140.mp3",
-	141: "https://austinfranklin.github.io/NetArt/media/sampl141.mp3",
-	142: "https://austinfranklin.github.io/NetArt/media/sample142.mp3",
-	143: "https://austinfranklin.github.io/NetArt/media/sample143.mp3",
-	144: "https://austinfranklin.github.io/NetArt/media/sample144.mp3",
-	145: "https://austinfranklin.github.io/NetArt/media/sample145.mp3",
-	146: "https://austinfranklin.github.io/NetArt/media/sample146.mp3",
-	147: "https://austinfranklin.github.io/NetArt/media/sample147.mp3",
-	148: "https://austinfranklin.github.io/NetArt/media/sample148.mp3",
-	149: "https://austinfranklin.github.io/NetArt/media/sample149.mp3",
-	150: "https://austinfranklin.github.io/NetArt/media/sample150.mp3",
-	151: "https://austinfranklin.github.io/NetArt/media/sample151.mp3",
-	152: "https://austinfranklin.github.io/NetArt/media/sample152.mp3",
-	153: "https://austinfranklin.github.io/NetArt/media/sample153.mp3",
-	154: "https://austinfranklin.github.io/NetArt/media/sample154.mp3",
-	155: "https://austinfranklin.github.io/NetArt/media/sample155.mp3",
-	156: "https://austinfranklin.github.io/NetArt/media/sample156.mp3",
-	157: "https://austinfranklin.github.io/NetArt/media/sample157.mp3",
-	158: "https://austinfranklin.github.io/NetArt/media/sample158.mp3"
+	100: "https://austinfranklin.github.io/NetArt/media2/sample100.mp3",
+	101: "https://austinfranklin.github.io/NetArt/media2/sample101.mp3",
+	102: "https://austinfranklin.github.io/NetArt/media2/sample102.mp3",
+	103: "https://austinfranklin.github.io/NetArt/media2/sample103.mp3",
+	104: "https://austinfranklin.github.io/NetArt/media2/sample104.mp3",
+	105: "https://austinfranklin.github.io/NetArt/media2/sample105.mp3",
+	106: "https://austinfranklin.github.io/NetArt/media2/sample106.mp3",
+	107: "https://austinfranklin.github.io/NetArt/media2/sample107.mp3",
+	108: "https://austinfranklin.github.io/NetArt/media2/sample108.mp3",
+	109: "https://austinfranklin.github.io/NetArt/media2/sample109.mp3",
+	110: "https://austinfranklin.github.io/NetArt/media2/sample110.mp3",
+	111: "https://austinfranklin.github.io/NetArt/media2/sample111.mp3",
+	112: "https://austinfranklin.github.io/NetArt/media2/sample112.mp3",
+	113: "https://austinfranklin.github.io/NetArt/media2/sample113.mp3",
+	114: "https://austinfranklin.github.io/NetArt/media2/sample114.mp3",
+	115: "https://austinfranklin.github.io/NetArt/media2/sample115.mp3",
+	116: "https://austinfranklin.github.io/NetArt/media2/sample116.mp3",
+	117: "https://austinfranklin.github.io/NetArt/media2/sample117.mp3",
+	118: "https://austinfranklin.github.io/NetArt/media2/sample118.mp3",
+	119: "https://austinfranklin.github.io/NetArt/media2/sample119.mp3",
+	120: "https://austinfranklin.github.io/NetArt/media2/sample120.mp3",
+	121: "https://austinfranklin.github.io/NetArt/media2/sample121.mp3",
+	122: "https://austinfranklin.github.io/NetArt/media2/sample122.mp3",
+	123: "https://austinfranklin.github.io/NetArt/media2/sample123.mp3",
+	124: "https://austinfranklin.github.io/NetArt/media2/sample124.mp3",
+	125: "https://austinfranklin.github.io/NetArt/media2/sample125.mp3",
+	126: "https://austinfranklin.github.io/NetArt/media2/sample126.mp3",
+	127: "https://austinfranklin.github.io/NetArt/media2/sample127.mp3",
+	128: "https://austinfranklin.github.io/NetArt/media2/sample128.mp3",
+	129: "https://austinfranklin.github.io/NetArt/media2/sample129.mp3",
+	130: "https://austinfranklin.github.io/NetArt/media2/sample130.mp3",
+	131: "https://austinfranklin.github.io/NetArt/media2/sample131.mp3",
+	132: "https://austinfranklin.github.io/NetArt/media2/sample132.mp3",
+	133: "https://austinfranklin.github.io/NetArt/media2/sample133.mp3",
+	134: "https://austinfranklin.github.io/NetArt/media2/sample134.mp3",
+	135: "https://austinfranklin.github.io/NetArt/media2/sample135.mp3",
+	136: "https://austinfranklin.github.io/NetArt/media2/sample136.mp3",
+	137: "https://austinfranklin.github.io/NetArt/media2/sample137.mp3",
+	138: "https://austinfranklin.github.io/NetArt/media2/sample138.mp3",
+	139: "https://austinfranklin.github.io/NetArt/media2/sample139.mp3",
+	140: "https://austinfranklin.github.io/NetArt/media2/sample140.mp3",
+	141: "https://austinfranklin.github.io/NetArt/media2/sampl141.mp3",
+	142: "https://austinfranklin.github.io/NetArt/media2/sample142.mp3",
+	143: "https://austinfranklin.github.io/NetArt/media2/sample143.mp3",
+	144: "https://austinfranklin.github.io/NetArt/media2/sample144.mp3",
+	145: "https://austinfranklin.github.io/NetArt/media2/sample145.mp3",
+	146: "https://austinfranklin.github.io/NetArt/media2/sample146.mp3",
+	147: "https://austinfranklin.github.io/NetArt/media2/sample147.mp3",
+	148: "https://austinfranklin.github.io/NetArt/media2/sample148.mp3",
+	149: "https://austinfranklin.github.io/NetArt/media2/sample149.mp3",
+	150: "https://austinfranklin.github.io/NetArt/media2/sample150.mp3",
+	151: "https://austinfranklin.github.io/NetArt/media2/sample151.mp3",
+	152: "https://austinfranklin.github.io/NetArt/media2/sample152.mp3",
+	153: "https://austinfranklin.github.io/NetArt/media2/sample153.mp3",
+	154: "https://austinfranklin.github.io/NetArt/media2/sample154.mp3",
+	155: "https://austinfranklin.github.io/NetArt/media2/sample155.mp3",
+	156: "https://austinfranklin.github.io/NetArt/media2/sample156.mp3",
+	157: "https://austinfranklin.github.io/NetArt/media2/sample157.mp3",
+	158: "https://austinfranklin.github.io/NetArt/media2/sample158.mp3"
 }).toDestination();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -246,45 +216,10 @@ let lowPass = {};
 let entireBox = document.getElementById("svg");
 
 // variable for sample playback... number of total samples
-let samples = 66;
+let samples = 158;
 
 // variable for sample
 let whichSample;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -355,27 +290,6 @@ document.getElementById("close").onclick = function () {
 	hub.user.sample = whichSample;
 	hub.register();
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -490,35 +404,6 @@ document.getElementById('textArea').addEventListener('keyup', function(event) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Nexus-Hub
 
 // array for site users
@@ -618,45 +503,6 @@ entireBox.addEventListener("mousemove", function () {
 			positionY: positions.y
 		});
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
