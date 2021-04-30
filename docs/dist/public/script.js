@@ -271,7 +271,7 @@ document.getElementById("close").onclick = function () {
 	whichSample = Math.floor(Math.random() * samples);
 
 	// users effects
-	const myGain = new Tone.Gain(0.45).toDestination();
+	const myGain = new Tone.Gain(0.25).toDestination();
 	const myFilter = new Tone.BiquadFilter(375, "lowpass").toDestination();
 	const myPan = new Tone.Panner(0).toDestination();
 	const myReverb = new Tone.JCReverb(0.45).toDestination();
@@ -346,13 +346,13 @@ onmousemove = (e) => {
 		entireBox.style.left = `${(positions.x - (window.innerWidth / 5)) - myWidth / 2}px`;
 		entireBox.style.top = `${positions.y - myHeight / 2}px`;
 
-		gainNode[user.id].gain.rampTo(scale(positions.y, 0, window.innerHeight, 0, 0.9), 0.1);
+		gainNode[user.id].gain.rampTo(scale(positions.y, 0, window.innerHeight, 0, 0.5), 0.1);
 		panners[user.id].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 0.1);
 		reverb[user.id].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 0.9), 0.1);
 		lowPass[user.id].frequency.rampTo(scale(positions.y, 0, window.innerHeight, 0, 750), 0.1);
 
-		// console.log("volume: " + scale(positions.y, 0, window.innerHeight, 0, 0.9));
-		// console.log("pan & reverb: " + scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1));
+		console.log("volume: " + scale(positions.y, 0, window.innerHeight, 0, 0.9));
+		console.log("pan & reverb: " + scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1));
 		console.log("cutoff: " + scale(positions.y, 0, window.innerHeight, 0, 750));
 
 		// console.log(container.clientHeight);
@@ -455,7 +455,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			div2.style.borderBottom = "1px solid black";
 			document.getElementById("textBox").prepend(div2);
 
-			let gain = new Tone.Gain(0.45).toDestination();
+			let gain = new Tone.Gain(0.25).toDestination();
 			let pan = new Tone.Panner(0).toDestination();
 			let reverb = new Tone.JCReverb(0.45).toDestination();
 			let filter = new Tone.BiquadFilter(375, "lowpass").toDestination();
@@ -475,13 +475,14 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			chat.innerHTML = data.message;
 			chat.style.borderBottom = "1px solid black";
 			document.getElementById("textBox").prepend(chat);
+
 		} else {
 			usersSquare = document.getElementById(data.user);
 			usersSquare.style.left = `${data.positionX  - (window.innerWidth / 5)}px`;
 			usersSquare.style.top = `${data.positionY}px`;
 
 			let container = document.getElementById("container");
-			gainNode[data.user].gain.rampTo(scale(positions.y, 0, window.innerHeight, 0, 0.9), 0.1);
+			gainNode[data.user].gain.rampTo(scale(positions.y, 0, window.innerHeight, 0, 0.5), 0.1);
 			panners[data.user].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 0.1);
 			reverb[data.user].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 0.9), 0.1);
 			filter[data.user].frequency.rampTo(scale(positions.y, 0, window.innerHeight, 0, 750), 0.1);
