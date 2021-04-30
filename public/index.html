@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="./style.css">
+	<script type="text/javascript" src="browserHub.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+<body>
+
+	<div class='entireWindow' id='entireWindow'>
+		<h1 class='text' id="heading">collab.soundscape</h1>
+		<div>
+			<p id="description">
+				A collaborative musical net art installation
+			</p>
+			<div id="input">
+				<p class='text'>
+					Name: <input type="text" id="name"><br><br></span> Location: <input type="text" id="geo"><br><br></span>
+				</p>
+				<p>
+					<button id="close">Join the Soundscape</button>
+				</p>
+			</div>
+			<p id="moreInfo">
+				Created by Austin Franklin
+				<br>
+				<a href="aboutCS.html">About collaborative.soundscapes</a> - <a href="https://austinfranklinmusic.com/">About Austin Franklin</a>
+			</p>
+		</div>
+	</div>
+
+	<div class='main' id="main">
+		<div class="users" id='svg'></div>
+		<div class="users" id="container">
+		</div>
+		<div class="users" id='allUsers'>
+			<h3 id="chatHeading">Chat</h3>
+			<div id="activity">
+				<input type="text" id="textArea" placeholder="Type message.." name="fname"></input>
+				<p id="tinyText">(press enter to send)</p>
+				<div id="textBox">
+					<span id="outputName">____</span>, from <span id="outputLocation">____</span> has joined
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.13/Tone.js'></script>
+  <script type="text/javascript" src="script.js"></script>
+
+</body>
+</html>
