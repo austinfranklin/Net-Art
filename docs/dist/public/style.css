@@ -16,7 +16,7 @@ body {
 	background-image: url('nature.svg');
 	background-repeat: no-repeat;
   	background-size: cover;
-	backdrop-filter: opacity(0.75) blur(10px);
+	backdrop-filter: opacity(0.75) blur(8px);
 }
 
 .entireWindow {
@@ -28,6 +28,7 @@ body {
 	display: block;
 	width: 50%;
 	height: 100%;
+	filter: blur(0.25px);
 }
 
 .entireWindow.hide {
@@ -38,6 +39,10 @@ body {
 	text-align: center;
 	font-size: 200%;
 	font-weight: bolder;
+}
+
+#heading2 {
+	font-size: 125%;
 }
 
 #moreInfo {
@@ -63,6 +68,16 @@ body {
 	width: 50%;
 	text-align: justify;
 	margin: auto;
+}
+
+#longText {
+	font-size: 65%;
+	text-align: justify;
+}
+
+#break {
+	padding-top: 2%;
+	text-align: center;
 }
 
 #input {
@@ -94,6 +109,7 @@ body {
 	text-shadow: none;
 	overflow: scroll;
 	user-select:none;
+	filter: blur(0.25px);
 }
 
 #chatHeading {

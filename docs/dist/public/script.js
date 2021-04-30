@@ -270,7 +270,7 @@ document.getElementById("close").onclick = function () {
 	whichSample = Math.floor(Math.random() * samples);
 
 	// users effects
-	const myGain = new Tone.Gain(-30).toDestination();
+	const myGain = new Tone.Gain(-36).toDestination();
 	const myFilter = new Tone.BiquadFilter(2490, "lowpass");
 	const myReverb = new Tone.JCReverb(0.5);
 	const myPan = new Tone.Panner(0);
@@ -281,7 +281,7 @@ document.getElementById("close").onclick = function () {
 	panners[user.id] = myPan;
 
 	players.player(whichSample).loop = true;
-	players.player(whichSample).chain(myGain, myFilter, myReverb, myPan, Tone.Destination).start();
+	players.player(whichSample).chain(myFilter, myReverb, myPan, myGain, Tone.Destination).start();
 
 	hub.user.name = user.name;
 	hub.user.geo = user.geo;
@@ -346,21 +346,21 @@ onmousemove = (e) => {
 		entireBox.style.top = `${positions.y - myHeight / 2}px`;
 
 		// set gain
-		if (scale(positions.y, 0, window.innerHeight, -48, -12) < -48) {
+		if (scale(positions.y, 0, window.innerHeight, -48, -24) < -48) {
 			gainNode[user.id].gain.value = -48;
-		} else if (scale(positions.y, 0, window.innerHeight, -48, -12) > -12) {
-			gainNode[user.id].gain.value = -12;
+		} else if (scale(positions.y, 0, window.innerHeight, -48, -24) > -24) {
+			gainNode[user.id].gain.value = -24;
 		} else {
-			gainNode[user.id].gain.rampTo(scale(positions.y, 0, window.innerHeight, -48, -12), 0.1);
+			gainNode[user.id].gain.rampTo(scale(positions.y, 0, window.innerHeight, -48, -24), 2);
 		}
 
 		// set filter cutoff
-		if (scale(positions.y, 0, window.innerHeight, 20, 5000) < 20) {
+		if (scale(positions.x, 0, window.innerWidth, 20, 5000) < 20) {
 			lowPass[user.id].frequency.value = 20;
-		} else if (scale(positions.y, 0, window.innerHeight, 20, 5000) > 5000) {
+		} else if (scale(positions.x, 0, window.innerWidth, 20, 5000) > 5000) {
 			lowPass[user.id].frequency.value = 5000;
 		} else {
-			lowPass[user.id].frequency.rampTo(scale(positions.y, 0, window.innerHeight, 20, 5000), 0.1);
+			lowPass[user.id].frequency.rampTo(scale(positions.x, 0, window.innerWidth, 20, 5000), 2);
 		}
 
 		// set reverb
@@ -369,7 +369,7 @@ onmousemove = (e) => {
 		} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1) > 1) {
 			reverb[user.id].roomSize.value = 1;
 		} else {
-			reverb[user.id].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1), 0.1);
+			reverb[user.id].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1), 2);
 		}
 
 		// set pan
@@ -378,7 +378,7 @@ onmousemove = (e) => {
 		} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1) > 1) {
 			panners[user.id].pan.value = 1;
 		} else {
-			panners[user.id].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 0.1);
+			panners[user.id].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 2);
 		}
 
 		console.log("volume: " + gainNode[user.id].gain.value);
@@ -485,7 +485,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			div2.style.borderBottom = "1px solid black";
 			document.getElementById("textBox").prepend(div2);
 
-			let gain = new Tone.Gain(-30).toDestination();
+			let gain = new Tone.Gain(-36).toDestination();
 			let filter = new Tone.BiquadFilter(2490, "lowpass").toDestination();
 			let reverb = new Tone.JCReverb(0.5).toDestination();
 			let pan = new Tone.Panner(0).toDestination();
@@ -497,7 +497,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
 
 
 			players.player(data.sample).loop = true;
-			players.player(data.sample).chain(gain, filter, reverb, pan, Tone.Destination).start();
+			players.player(data.sample).chain(filter, reverb, pan, gain, Tone.Destination).start();
 
 		} else if (data.textId) {
 			// send messages
@@ -515,12 +515,12 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			let container = document.getElementById("container");
 
 			// set gain
-			if (scale(positions.y, 0, window.innerHeight, -48, -12) < -48) {
+			if (scale(positions.y, 0, window.innerHeight, -48, -24) < -48) {
 				gainNode[data.user].gain.value = -48;
-			} else if (scale(positions.y, 0, window.innerHeight, -48, -12) > -12) {
-				gainNode[data.user].gain.value = -12;
+			} else if (scale(positions.y, 0, window.innerHeight, -48, -24) > -24) {
+				gainNode[data.user].gain.value = -24;
 			} else {
-				gainNode[data.user].gain.rampTo(scale(positions.y, 0, window.innerHeight, -48, -12), 0.1);
+				gainNode[data.user].gain.rampTo(scale(positions.y, 0, window.innerHeight, -48, -24), 2);
 			}
 
 			// set filter cutoff
@@ -529,7 +529,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			} else if (scale(positions.y, 0, window.innerHeight, 20, 5000) > 5000) {
 				filter[data.user].frequency.value = 5000;
 			} else {
-				filter[data.user].frequency.rampTo(scale(positions.y, 0, window.innerHeight, 20, 5000), 0.1);
+				filter[data.user].frequency.rampTo(scale(positions.y, 0, window.innerHeight, 20, 5000), 2);
 			}
 
 			// set reverb
@@ -538,7 +538,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1) > 1) {
 				reverb[data.user].roomSize.value = 1;
 			} else {
-				reverb[data.user].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1), 0.1);
+				reverb[data.user].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1), 2);
 			}
 
 			// set pan
@@ -547,7 +547,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1) > 1) {
 				panners[data.user].pan.value = 1;
 			} else {
-				panners[data.user].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 0.1);
+				panners[data.user].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 2);
 			}
 
 			// console.log("volume: " + gainNode[data.user].gain.value);
