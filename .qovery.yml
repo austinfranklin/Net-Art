@@ -1,0 +1,12 @@
+---
+application:
+  name: "netart"
+  project: "collab.soundscape"
+  organization: "QoveryCommunity"
+  publicly_accessible: "true"
+routers:
+- name: "main-netart"
+  routes:
+  - application_name: "netart"
+    paths:
+    - "/*"
