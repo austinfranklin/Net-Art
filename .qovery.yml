@@ -1,0 +1,11 @@
+---
+application:
+  name: "netart"
+  project: "collab.soundscape"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-netart"
+  routes:
+  - application_name: "netart"
+    paths:
+    - "/*"
