@@ -8,12 +8,16 @@
 	<script type="text/javascript" src="browserHub.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="true">
+
 </head>
 
 <body>
 
 	<div class='entireWindow' id='entireWindow'>
-		<h1 class='text' id="heading">collab.soundscape</h1>
+		<h1 class='text' id="heading">collab.sound-scape</h1>
 		<div>
 			<p id="description">
 				A collaborative musical net art installation
@@ -29,7 +33,7 @@
 			<p id="moreInfo">
 				Created by Austin Franklin
 				<br>
-				<a href="aboutCS.html">About collaborative.soundscapes</a> - <a href="https://austinfranklinmusic.com/">About Austin Franklin</a>
+				<a href="aboutCS.html">About collab.sound-scape</a> - <a href="https://austinfranklinmusic.com/">About Austin Franklin</a>
 			</p>
 		</div>
 	</div>
@@ -42,7 +46,7 @@
 			<h3 id="chatHeading">Chat</h3>
 			<div id="activity">
 				<input type="text" id="textArea" placeholder="Type message.." name="fname"></input>
-				<p id="tinyText">(press enter to send)</p>
+				<p id="tinyText">(press enter/return to send)</p>
 				<div id="textBox">
 					<span id="outputName">____</span>, from <span id="outputLocation">____</span> has joined
 				</div>

@@ -158,7 +158,40 @@ const players = new Tone.Players({
 	156: "https://austinfranklin.github.io/NetArt/media2/sample156.mp3",
 	157: "https://austinfranklin.github.io/NetArt/media2/sample157.mp3",
 	158: "https://austinfranklin.github.io/NetArt/media2/sample158.mp3"
-}).toDestination();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// resize for mobile devices... height didn't set properly with meta tag
+let vh = window.innerHeight * 0.01;
+let vh2 = window.innerWidth * 0.01;
+
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+document.documentElement.style.setProperty('--vh2', `${vh2}px`);
+
+window.addEventListener('resize', () => {
+	let vh = window.innerHeight * 0.01;
+	document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+	let vh2 = window.innerWidth * 0.01;
+	document.documentElement.style.setProperty('--vh2', `${vh2}px`);
+  });
+
+
+
 
 
 
@@ -189,6 +222,15 @@ hub.init();
 
 
 
+
+
+
+
+
+
+
+
+
 // code for pop-up window at beginning
 const entireWindow = document.getElementById("entireWindow");
 const main = document.getElementById("main");
@@ -206,10 +248,15 @@ positions = {
 	y: ""
 };
 
+windowSize = {
+	w: "",
+	h: ""
+}
+
 // object for all users tone.players
 let gainNode = {};
 let lowPass = {};
-let reverb = {};
+let reverbs = {};
 let panners = {};
 
 // varible for user svg object
@@ -220,6 +267,18 @@ let samples = 158;
 
 // variable for sample
 let whichSample;
+
+// array for all site users
+let users = [];
+
+
+
+
+
+
+
+
+
 
 
 
@@ -265,23 +324,28 @@ document.getElementById("close").onclick = function () {
 	entireBox.style.top = "50%";
 	entireBox.style.left = "50%";
 
+	windowSize.w = window.innerWidth;
+	windowSize.h = window.innerHeight;
 
 	// set 1 random sample
 	whichSample = Math.floor(Math.random() * samples);
 
 	// users effects
-	const myGain = new Tone.Gain(-36).toDestination();
+	const myGain = new Tone.Volume(-18);
 	const myFilter = new Tone.BiquadFilter(2490, "lowpass");
 	const myReverb = new Tone.JCReverb(0.5);
 	const myPan = new Tone.Panner(0);
 
 	gainNode[user.id] = myGain;
 	lowPass[user.id] = myFilter;
-	reverb[user.id] = myReverb;
+	reverbs[user.id] = myReverb;
 	panners[user.id] = myPan;
 
 	players.player(whichSample).loop = true;
 	players.player(whichSample).chain(myFilter, myReverb, myPan, myGain, Tone.Destination).start();
+
+	//players.player(whichSample).start();
+
 
 	hub.user.name = user.name;
 	hub.user.geo = user.geo;
@@ -303,7 +367,16 @@ document.getElementById("close").onclick = function () {
 
 
 
-// mousestate variable for events
+
+
+
+
+
+
+
+
+
+// variable for events on computer and mobile
 let mouseState = false;
 
 // mouse down
@@ -311,6 +384,12 @@ entireBox.onmousedown = () => {
 	console.log("down");
 	mouseState = true;
 };
+
+
+
+
+
+
 
 // scroll offset variable
 let scrollXOffset = 0;
@@ -325,15 +404,27 @@ onscroll = () => {
 	//console.log("x: " + scrollXOffset + "y: " + scrollYOffset);
 };
 
+
+
+
+
+
+
+
+
+
+
+
 // drag box with mouse
 onmousemove = (e) => {
 	if (mouseState) {
 
-		let container = document.getElementById("container");
-		// get size in px of svg
-		entireBox.style.boxSizing = "content-box";
+		// get size of svg
 		let myWidth = entireBox.getBoundingClientRect().width;
 		let myHeight = entireBox.getBoundingClientRect().height;
+
+		// get size in px of svg
+		entireBox.style.boxSizing = "content-box";
 		//console.log("width: " + myWidth + " height: " + myHeight);
 
 		// mouse horizontal and vertical coordinates
@@ -342,53 +433,148 @@ onmousemove = (e) => {
 		//console.log("posX: ", positions.x, "posY: ", positions.y);
 
 		// use mouse pos and offset by 1/2 size of svg
-		entireBox.style.left = `${(positions.x - (window.innerWidth / 5)) - myWidth / 2}px`;
+		entireBox.style.left = `${(positions.x - (window.innerWidth / 4)) - (myWidth / 2)}px`;
 		entireBox.style.top = `${positions.y - myHeight / 2}px`;
 
 		// set gain
-		if (scale(positions.y, 0, window.innerHeight, -48, -24) < -48) {
-			gainNode[user.id].gain.value = -48;
-		} else if (scale(positions.y, 0, window.innerHeight, -48, -24) > -24) {
-			gainNode[user.id].gain.value = -24;
+		if (scale(positions.y, 0, windowSize.h, -24, -12) < -24) {
+			gainNode[user.id].volume.value = -24;
+		} else if (scale(positions.y, 0, windowSize.h, -24, -12) > -12) {
+			gainNode[user.id].volume.value = -12;
 		} else {
-			gainNode[user.id].gain.rampTo(scale(positions.y, 0, window.innerHeight, -48, -24), 2);
+			gainNode[user.id].volume.value = (scale(positions.y, 0, windowSize.h, -24, -12));
 		}
 
 		// set filter cutoff
-		if (scale(positions.x, 0, window.innerWidth, 20, 5000) < 20) {
+		if (scale(positions.y, 0, windowSize.h, 20, 5000) < 20) {
 			lowPass[user.id].frequency.value = 20;
-		} else if (scale(positions.x, 0, window.innerWidth, 20, 5000) > 5000) {
+		} else if (scale(positions.y, 0, windowSize.h, 20, 5000) > 5000) {
 			lowPass[user.id].frequency.value = 5000;
 		} else {
-			lowPass[user.id].frequency.rampTo(scale(positions.x, 0, window.innerWidth, 20, 5000), 2);
+			lowPass[user.id].frequency.rampTo(scale(positions.y, 0, windowSize.h, 20, 5000), 2);
 		}
 
 		// set reverb
-		if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1) < 0) {
-			reverb[user.id].roomSize.value = 0;
-		} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1) > 1) {
-			reverb[user.id].roomSize.value = 1;
+		if (scale((positions.x - (windowSize.w / 4)), 0, windowSize.w, 0, 1) < 0) {
+			reverbs[user.id].roomSize.value = 0;
+		} else if (scale((positions.x - (windowSize.w / 4)), 0, windowSize.w, 0, 1) > 1) {
+			reverbs[user.id].roomSize.value = 1;
 		} else {
-			reverb[user.id].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1), 2);
+			reverbs[user.id].roomSize.rampTo(scale((positions.x - (windowSize.w / 4)), 0, windowSize.w, 0, 1), 2);
 		}
 
 		// set pan
-		if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1) < -1) {
-			panners[user.id].pan.value = -1;;
-		} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1) > 1) {
+		if (scale((positions.x - (windowSize.w / 4)), 0, windowSize.w, -1, 1) < -1) {
+			panners[user.id].pan.value = -1;
+		} else if (scale((positions.x - (windowSize.w / 4)), 0, windowSize.w, -1, 1) > 1) {
 			panners[user.id].pan.value = 1;
 		} else {
-			panners[user.id].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 2);
+			panners[user.id].pan.rampTo(scale((positions.x - (windowSize.w / 4)), 0, windowSize.w, -1, 1), 2);
 		}
 
-		console.log("volume: " + gainNode[user.id].gain.value);
+		console.log("volume: " + gainNode[user.id].volume.value);
 		console.log("pan & reverb: " + panners[user.id].pan.value);
 		console.log("cutoff: " + lowPass[user.id].frequency.value);
 
 		// console.log(container.clientHeight);
 		// console.log(container.clientWidth);
+
+		hub.send("moveAndPlay", {
+			name: user.name,
+			geo: user.geo,
+			user: user.id,
+			sample: whichSample,
+			width: windowSize.w,
+			height: windowSize.h,
+			positionX: positions.x,
+			positionY: positions.y
+		});
 	}
 };
+
+
+entireBox.addEventListener('touchmove', function (e) {
+
+	// get size of svg
+	let myWidth = entireBox.getBoundingClientRect().width;
+	let myHeight = entireBox.getBoundingClientRect().height;
+
+	//grab the location of the touch
+	var touchLocation = e.targetTouches[0];
+	
+	// get size in px of svg
+	entireBox.style.boxSizing = "content-box";
+	//console.log("width: " + myWidth + " height: " + myHeight);
+
+	// horizontal scrolling amount
+	scrollXOffset = window.pageXOffset;
+	// vertical scrolling amount
+	scrollYOffset = window.pageYOffset;
+	//console.log("x: " + scrollXOffset + "y: " + scrollYOffset);
+
+	// touch horizontal and vertical coordinates
+	positions.x = (touchLocation.pageX - (window.innerWidth / 4)) - (myWidth / 2);
+	positions.y = touchLocation.pageY - (myHeight / 2);
+	//console.log("posX: ", positions.x, "posY: ", positions.y);
+
+	//assign new coordinates based on the touch
+	// use touch pos and offset by 1/2 size of svg
+	entireBox.style.left = `${(touchLocation.pageX - (window.innerWidth / 4)) - myWidth / 2}px`;
+	entireBox.style.top = `${touchLocation.pageY - myHeight / 2}px`;
+
+	// set gain
+	if (scale(touchLocation.pageY, 0, windowSize.h, -24, -12) < -24) {
+		gainNode[user.id].volume.value = -24;
+	} else if (scale(touchLocation.pageY, 0, windowSize.h, -24, -12) > -12) {
+		gainNode[user.id].volume.value = -12;
+	} else {
+		gainNode[user.id].volume.value = (scale(touchLocation.pageY, 0, windowSize.h, -24, -12));
+	}
+
+		// set filter cutoff
+	if (scale(touchLocation.pageY, 0, windowSize.h, 20, 5000) < 20) {
+		lowPass[user.id].frequency.value = 20;
+	} else if (scale(touchLocation.pageY, 0, windowSize.h, 20, 5000) > 5000) {
+		lowPass[user.id].frequency.value = 5000;
+	} else {
+		lowPass[user.id].frequency.rampTo(scale(touchLocation.pageY, 0, windowSize.h, 20, 5000), 5);
+	}
+
+		// set reverb
+	if (scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, 0, 1) < 0) {
+		reverbs[user.id].roomSize.value = 0;
+	} else if (scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, 0, 1) > 1) {
+		reverbs[user.id].roomSize.value = 1;
+	} else {
+		reverbs[user.id].roomSize.rampTo(scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, 0, 1), 5);
+	}
+
+		// set pan
+	if (scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, -1, 1) < -1) {
+		panners[user.id].pan.value = -1;;
+	} else if (scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, -1, 1) > 1) {
+		panners[user.id].pan.value = 1;
+	} else {
+		panners[user.id].pan.rampTo(scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, -1, 1), 5);
+	}
+
+	console.log("volume: " + gainNode[user.id].volume.value);
+	console.log("pan & reverb: " + panners[user.id].pan.value);
+	console.log("cutoff: " + lowPass[user.id].frequency.value);
+
+	// send positions through the hub
+	hub.send("moveAndPlay", {
+		name: user.name,
+		geo: user.geo,
+		user: user.id,
+		sample: whichSample,
+		width: windowSize.w,
+		height: windowSize.h,
+		positionX: positions.x,
+		positionY: positions.y
+	});
+});
+
 
 // mouse up
 entireBox.onmouseup = () => {
@@ -397,6 +583,15 @@ entireBox.onmouseup = () => {
 };
 
 
+
+
+
+
+
+
+
+
+// sending messages with the chat
 document.getElementById('textArea').addEventListener('keyup', function(event) {
     if (event.code === 'Enter') {
 		let text = document.createElement('div');
@@ -434,10 +629,18 @@ document.getElementById('textArea').addEventListener('keyup', function(event) {
 
 
 
+
+
+
+
+// random object size for each user... for offset on receiving side
+let size = {};
+
+
+
+
 // Nexus-Hub
 
-// array for site users
-let users = [];
 // variable for users svg
 let usersSquare;
 
@@ -468,6 +671,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
     	if (!users.includes(data.user)) {
 
 			let rand = (Math.random() * 7) + 3;
+			size[data.user] = rand;
 
 			users.push(data.user);
 			let div = document.createElement('div');
@@ -477,22 +681,22 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			div.style.position = "absolute";
 			div.style.width = `${rand}%`;
 			div.style.height = `${rand}%`;
-			div.style.top = "50%";
-			div.style.left = "50%";
+			// div.style.top = "50%";
+			// div.style.left = "50%";
 
 			let div2 = document.createElement('div');
 			div2.innerHTML = "<span>" + data.name + "</span>, from <span>" + data.geo + "</span> has joined";
 			div2.style.borderBottom = "1px solid black";
 			document.getElementById("textBox").prepend(div2);
 
-			let gain = new Tone.Gain(-36).toDestination();
-			let filter = new Tone.BiquadFilter(2490, "lowpass").toDestination();
-			let reverb = new Tone.JCReverb(0.5).toDestination();
-			let pan = new Tone.Panner(0).toDestination();
+			const gain = new Tone.Volume(-18);
+			const filter = new Tone.BiquadFilter(2490, "lowpass");
+			const reverb = new Tone.JCReverb(0.5);
+			const pan = new Tone.Panner(0);
 			
 			gainNode[data.user] = gain;
-			filter[data.user] = filter;
-			reverb[data.user] = reverb;
+			lowPass[data.user] = filter;
+			reverbs[data.user] = reverb;
 			panners[data.user] = pan;
 
 
@@ -509,45 +713,84 @@ hub.channel("moveAndPlay", null, null, function (data) {
 
 		} else {
 			usersSquare = document.getElementById(data.user);
-			usersSquare.style.left = `${data.positionX  - (window.innerWidth / 5)}px`;
-			usersSquare.style.top = `${data.positionY}px`;
 
-			let container = document.getElementById("container");
+			usersSquare.style.marginLeft = "-35%"
+
+			// update position
+			usersSquare.style.left = `${scale(data.positionX, 0, data.width, 0, document.body.clientWidth) - (size[data.user] * 2)}px`;
+			usersSquare.style.top = `${scale(data.positionY, 0, data.height, 0, document.body.clientHeight) - (size[data.user] * 2)}px`;
+
 
 			// set gain
-			if (scale(positions.y, 0, window.innerHeight, -48, -24) < -48) {
-				gainNode[data.user].gain.value = -48;
-			} else if (scale(positions.y, 0, window.innerHeight, -48, -24) > -24) {
-				gainNode[data.user].gain.value = -24;
+			if (scale(data.positionY, 0, data.height, -24, -12) < -24) {
+				gainNode[data.user].volume.value = -24;
+			} else if (scale(data.positionY, 0, data.height, -24, -12) > -12) {
+				gainNode[data.user].volume.value = -12;
 			} else {
-				gainNode[data.user].gain.rampTo(scale(positions.y, 0, window.innerHeight, -48, -24), 2);
+				gainNode[data.user].volume.value = (scale(data.positionY, 0, data.height, -24, -12));
 			}
 
 			// set filter cutoff
-			if (scale(positions.y, 0, window.innerHeight, 20, 5000) < 20) {
-				filter[data.user].frequency.value = 0;
-			} else if (scale(positions.y, 0, window.innerHeight, 20, 5000) > 5000) {
-				filter[data.user].frequency.value = 5000;
+			if (scale(data.positionY, 0, data.height, 20, 5000) < 20) {
+				lowPass[data.user].frequency.value = 0;
+			} else if (scale(data.positionY, 0, data.height, 20, 5000) > 5000) {
+				lowPass[data.user].frequency.value = 5000;
 			} else {
-				filter[data.user].frequency.rampTo(scale(positions.y, 0, window.innerHeight, 20, 5000), 2);
+				lowPass[data.user].frequency.rampTo(scale(data.positionY, 0, data.height, 20, 5000), 5);
 			}
 
 			// set reverb
-			if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1) < 0) {
-				reverb[data.user].roomSize.value = 0;
-			} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1) > 1) {
-				reverb[data.user].roomSize.value = 1;
+			if (scale((data.positionX - (data.width / 4)), 0, data.width, 0, 1) < 0) {
+				reverbs[data.user].roomSize.value = 0;
+			} else if (scale((data.positionX - (data.width / 4)), 0, data.width, 0, 1) > 1) {
+				reverbs[data.user].roomSize.value = 1;
 			} else {
-				reverb[data.user].roomSize.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, 0, 1), 2);
+				reverbs[data.user].roomSize.rampTo(scale((data.positionX - (data.width / 4)), 0, data.width, 0, 1), 5);
 			}
 
 			// set pan
-			if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1) < -1) {
-				panners[data.user].pan.value = -1;;
-			} else if (scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1) > 1) {
+			if (scale((data.positionX - (data.width / 4)), 0, data.width, -1, 1) < -1) {
+				panners[data.user].pan.value = -1;
+			} else if (scale((data.positionX - (data.width / 4)), 0, data.width, -1, 1) > 1) {
 				panners[data.user].pan.value = 1;
 			} else {
-				panners[data.user].pan.rampTo(scale((positions.x - (window.innerWidth / 5)), 0, container.clientWidth, -1, 1), 2);
+				panners[data.user].pan.rampTo(scale((data.positionX - (data.width / 4)), 0, data.width, -1, 1), 5);
+			}
+
+			// set gain for mobile
+			if (scale(data.positionY, 0, data.height, -24, -12) < -24) {
+				gainNode[data.user].volume.value = -24;
+			} else if (scale(data.positionY, 0, data.height, -24, -12) > -12) {
+				gainNode[data.user].volume.value = -12;
+			} else {
+				gainNode[data.user].volume.value = (scale(data.positionY, 0, data.height, -24, -12));
+			}
+
+			// set filter cutoff for mobile
+			if (scale(data.positionY, 0, data.height, 20, 5000) < 20) {
+				lowPass[data.user].frequency.value = 0;
+			} else if (scale(data.positionY, 0, data.height, 20, 5000) > 5000) {
+				lowPass[data.user].frequency.value = 5000;
+			} else {
+				lowPass[data.user].frequency.rampTo(scale(data.positionY, 0, data.height, 20, 5000), 2);
+			}
+
+			// set reverb for mobile
+			if (scale((data.positionX - (data.width / 4)), 0, data.width, 0, 1) < 0) {
+				reverbs[data.user].roomSize.value = 0;
+			} else if (scale((data.positionX - (data.width / 4)), 0, data.width, 0, 1) > 1) {
+				reverbs[data.user].roomSize.value = 1;
+			} else {
+				reverbs[data.user].roomSize.rampTo(scale((data.positionX - (data.width / 4)), 0, data.width, 0, 1), 2);
+			}
+
+			// set pan for mobile
+			if (scale((data.positionX - (data.width / 4)), 0, data.width, -1, 1) < -1) {
+				panners[data.user].pan.value = -1;
+			} else if (scale((data.positionX - (data.width / 4)), 0, data.width, -1, 1) > 1) {
+				panners[data.user].pan.value = 1;
+			} else {
+				panners[data.user].pan.rampTo(scale((data.positionX - (data.width / 4)), 0, data.width, -1, 1), 2);
 			}
 
 			// console.log("volume: " + gainNode[data.user].gain.value);
@@ -557,16 +800,35 @@ hub.channel("moveAndPlay", null, null, function (data) {
 });
 
 // event send if entireBox moves or user triggers sound
-entireBox.addEventListener("mousemove", function () {
-		hub.send("moveAndPlay", {
-			name: user.name,
-			geo: user.geo,
-			user: user.id,
-			sample: whichSample,
-			positionX: positions.x,
-			positionY: positions.y
-		});
-});
+// entireBox.addEventListener("mousemove", function () {
+// 		hub.send("moveAndPlay", {
+// 			name: user.name,
+// 			geo: user.geo,
+// 			user: user.id,
+// 			sample: whichSample,
+// 			width: windowSize.w,
+// 			height: windowSize.h,
+// 			positionX: positions.x,
+// 			positionY: positions.y
+// 		});
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
