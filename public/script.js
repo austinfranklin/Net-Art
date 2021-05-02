@@ -188,7 +188,7 @@ window.addEventListener('resize', () => {
 
 	let vh2 = window.innerWidth * 0.01;
 	document.documentElement.style.setProperty('--vh2', `${vh2}px`);
-  });
+});
 
 
 
@@ -513,13 +513,13 @@ entireBox.addEventListener('touchmove', function (e) {
 	//console.log("x: " + scrollXOffset + "y: " + scrollYOffset);
 
 	// touch horizontal and vertical coordinates
-	positions.x = (touchLocation.pageX - (window.innerWidth / 4)) - (myWidth / 2);
+	positions.x = touchLocation.pageX - (myWidth / 2);
 	positions.y = touchLocation.pageY - (myHeight / 2);
 	//console.log("posX: ", positions.x, "posY: ", positions.y);
 
 	//assign new coordinates based on the touch
 	// use touch pos and offset by 1/2 size of svg
-	entireBox.style.left = `${(touchLocation.pageX - (window.innerWidth / 4)) - myWidth / 2}px`;
+	entireBox.style.left = `${(touchLocation.pageX - (windowSize.w / 4)) - myWidth / 2}px`;
 	entireBox.style.top = `${touchLocation.pageY - myHeight / 2}px`;
 
 	// set gain
