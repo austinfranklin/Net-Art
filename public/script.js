@@ -331,7 +331,7 @@ document.getElementById("close").onclick = function () {
 	whichSample = Math.floor(Math.random() * samples);
 
 	// users effects
-	const myGain = new Tone.Volume(-18);
+	const myGain = new Tone.Volume(-12);
 	const myFilter = new Tone.BiquadFilter(2490, "lowpass");
 	const myReverb = new Tone.JCReverb(0.5);
 	const myPan = new Tone.Panner(0);
@@ -370,12 +370,6 @@ document.getElementById("close").onclick = function () {
 
 
 
-
-
-
-
-
-
 // variable for events on computer and mobile
 let mouseState = false;
 
@@ -384,6 +378,11 @@ entireBox.onmousedown = () => {
 	console.log("down");
 	mouseState = true;
 };
+
+
+
+
+
 
 
 
@@ -403,6 +402,10 @@ onscroll = () => {
 	scrollYOffset = window.pageYOffset;
 	//console.log("x: " + scrollXOffset + "y: " + scrollYOffset);
 };
+
+
+
+
 
 
 
@@ -437,12 +440,12 @@ onmousemove = (e) => {
 		entireBox.style.top = `${positions.y - myHeight / 2}px`;
 
 		// set gain
-		if (scale(positions.y, 0, windowSize.h, -24, -12) < -24) {
-			gainNode[user.id].volume.value = -24;
-		} else if (scale(positions.y, 0, windowSize.h, -24, -12) > -12) {
-			gainNode[user.id].volume.value = -12;
+		if (scale(positions.y, 0, windowSize.h, -18, -6) < -18) {
+			gainNode[user.id].volume.value = -18;
+		} else if (scale(positions.y, 0, windowSize.h, -18, -6) > -6) {
+			gainNode[user.id].volume.value = -6;
 		} else {
-			gainNode[user.id].volume.value = (scale(positions.y, 0, windowSize.h, -24, -12));
+			gainNode[user.id].volume.value = (scale(positions.y, 0, windowSize.h, -18, -6));
 		}
 
 		// set filter cutoff
@@ -523,12 +526,12 @@ entireBox.addEventListener('touchmove', function (e) {
 	entireBox.style.top = `${touchLocation.pageY - myHeight / 2}px`;
 
 	// set gain
-	if (scale(touchLocation.pageY, 0, windowSize.h, -24, -12) < -24) {
-		gainNode[user.id].volume.value = -24;
-	} else if (scale(touchLocation.pageY, 0, windowSize.h, -24, -12) > -12) {
-		gainNode[user.id].volume.value = -12;
+	if (scale(touchLocation.pageY, 0, windowSize.h, -18, -6) < -18) {
+		gainNode[user.id].volume.value = -18;
+	} else if (scale(touchLocation.pageY, 0, windowSize.h, -18, -6) > -6) {
+		gainNode[user.id].volume.value = -6;
 	} else {
-		gainNode[user.id].volume.value = (scale(touchLocation.pageY, 0, windowSize.h, -24, -12));
+		gainNode[user.id].volume.value = (scale(touchLocation.pageY, 0, windowSize.h, -18, -6));
 	}
 
 		// set filter cutoff
@@ -581,6 +584,12 @@ entireBox.onmouseup = () => {
 	console.log("up");
 	mouseState = false;
 };
+
+
+
+
+
+
 
 
 
@@ -722,12 +731,12 @@ hub.channel("moveAndPlay", null, null, function (data) {
 
 
 			// set gain
-			if (scale(data.positionY, 0, data.height, -24, -12) < -24) {
-				gainNode[data.user].volume.value = -24;
-			} else if (scale(data.positionY, 0, data.height, -24, -12) > -12) {
-				gainNode[data.user].volume.value = -12;
+			if (scale(data.positionY, 0, data.height, -18, -6) < -18) {
+				gainNode[data.user].volume.value = -18;
+			} else if (scale(data.positionY, 0, data.height, -18, -6) > -6) {
+				gainNode[data.user].volume.value = -6;
 			} else {
-				gainNode[data.user].volume.value = (scale(data.positionY, 0, data.height, -24, -12));
+				gainNode[data.user].volume.value = (scale(data.positionY, 0, data.height, -18, -6));
 			}
 
 			// set filter cutoff
@@ -758,12 +767,12 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			}
 
 			// set gain for mobile
-			if (scale(data.positionY, 0, data.height, -24, -12) < -24) {
-				gainNode[data.user].volume.value = -24;
-			} else if (scale(data.positionY, 0, data.height, -24, -12) > -12) {
-				gainNode[data.user].volume.value = -12;
+			if (scale(data.positionY, 0, data.height, -18, -6) < -18) {
+				gainNode[data.user].volume.value = -18;
+			} else if (scale(data.positionY, 0, data.height, -18, -6) > -6) {
+				gainNode[data.user].volume.value = -6;
 			} else {
-				gainNode[data.user].volume.value = (scale(data.positionY, 0, data.height, -24, -12));
+				gainNode[data.user].volume.value = (scale(data.positionY, 0, data.height, -18, -6));
 			}
 
 			// set filter cutoff for mobile
@@ -812,19 +821,6 @@ hub.channel("moveAndPlay", null, null, function (data) {
 // 			positionY: positions.y
 // 		});
 // });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
