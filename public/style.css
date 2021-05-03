@@ -2,10 +2,10 @@ html {
     min-height: calc(var(--vh, 1vh) * 100);
 	min-width: calc(var(--vh2, 1vh) * 100);
 	z-index: 1;
-	font-family: 'Passion One', cursive;
+	font-family: 'Passion One';
 	font-weight: bolder;
 	color: rgb(88, 133, 185);
-	text-shadow: 0.75px 0.75px rgb(230, 230, 230);
+	text-shadow: 0.75px 0.75px rgb(0, 0, 0);
 	font-size: 150%;
 	/* overflow: hidden; */
 }
@@ -20,7 +20,7 @@ body {
 	background-image: url('nature.svg');
 	background-repeat: no-repeat;
   	background-size: cover;
-	backdrop-filter: opacity(0.75) blur(8px);
+	backdrop-filter: opacity(0.75) blur(6px);
 	overflow: hidden;
 }
 
