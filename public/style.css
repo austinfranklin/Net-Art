@@ -2,10 +2,10 @@ html {
     min-height: calc(var(--vh, 1vh) * 100);
 	min-width: calc(var(--vh2, 1vh) * 100);
 	z-index: 1;
-	font-family: 'Cinzel', serif;
+	font-family: 'Passion One', cursive;
 	font-weight: bolder;
 	color: rgb(88, 133, 185);
-	text-shadow: 0.75px 0.75px rgb(122, 122, 122);
+	text-shadow: 0.75px 0.75px rgb(230, 230, 230);
 	font-size: 150%;
 	/* overflow: hidden; */
 }
