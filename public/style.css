@@ -2,10 +2,11 @@ html {
     min-height: calc(var(--vh, 1vh) * 100);
 	min-width: calc(var(--vh2, 1vh) * 100);
 	z-index: 1;
-	font-family: 'Adamina', serif;
+	font-family: 'Cinzel', serif;
+	font-weight: bolder;
 	color: rgb(88, 133, 185);
-	text-shadow: 0.5px 0.5px rgb(100,100,100);
-	font-size: 125%;
+	text-shadow: 0.75px 0.75px rgb(122, 122, 122);
+	font-size: 150%;
 	/* overflow: hidden; */
 }
 
@@ -24,9 +25,10 @@ body {
 }
 
 .entireWindow {
-	padding-top: 9%;
-	padding-left: 25%;
-	padding-right: 25%;
+	padding-top: calc(var(--vh, 1vh) * 9);
+	padding-bottom: calc(var(--v, 1vh) * 9);
+	/* padding-left: 25%;
+	padding-right: 25%; */
 	text-align: center;
 	pointer-events: auto;
 	display: block;
@@ -42,16 +44,18 @@ body {
 
 #heading {
 	text-align: center;
-	font-size: 175%;
+	font-size: 200%;
 	font-weight: bolder;
+	user-select:none;
 }
 
 #heading2 {
-	font-size: 85%;
+	font-size: 100%;
+	font-weight: bolder;
 }
 
 #moreInfo {
-	padding-bottom: 5%;
+	padding-bottom: 25%;
 	font-size: 65%;
 }
 
@@ -60,6 +64,7 @@ body {
 	text-align: center;
 	margin: auto;
 	font-weight: bold;
+	user-select:none;
 }
 
 #info {
@@ -76,8 +81,10 @@ body {
 }
 
 #longText {
-	font-size: 55%;
+	font-size: 100%;
 	text-align: justify;
+	padding-left: calc(var(--vh2, 1vh) * 15);
+	padding-right: calc(var(--vh2, 1vh) * 15);
 }
 
 #break {
@@ -86,7 +93,7 @@ body {
 }
 
 #input {
-	padding: 12%;
+	padding: 5%;
 	font-size: 75%;
 }
 
