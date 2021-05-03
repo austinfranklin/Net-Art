@@ -81,7 +81,7 @@ body {
 }
 
 #longText {
-	font-size: 100%;
+	font-size: 75%;
 	text-align: justify;
 	padding-left: calc(var(--vh2, 1vh) * 15);
 	padding-right: calc(var(--vh2, 1vh) * 15);
