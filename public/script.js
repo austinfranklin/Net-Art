@@ -332,7 +332,7 @@ document.getElementById("close").onclick = function () {
 
 	// users effects
 	const myGain = new Tone.Volume(-12);
-	const myFilter = new Tone.BiquadFilter(2490, "lowpass");
+	const myFilter = new Tone.BiquadFilter(4990, "lowpass");
 	const myReverb = new Tone.JCReverb(0.5);
 	const myPan = new Tone.Panner(0);
 
@@ -449,12 +449,12 @@ onmousemove = (e) => {
 		}
 
 		// set filter cutoff
-		if (scale(positions.y, 0, windowSize.h, 20, 5000) < 20) {
+		if (scale(positions.y, 0, windowSize.h, 20, 10000) < 20) {
 			lowPass[user.id].frequency.value = 20;
-		} else if (scale(positions.y, 0, windowSize.h, 20, 5000) > 5000) {
-			lowPass[user.id].frequency.value = 5000;
+		} else if (scale(positions.y, 0, windowSize.h, 20, 10000) > 10000) {
+			lowPass[user.id].frequency.value = 10000;
 		} else {
-			lowPass[user.id].frequency.rampTo(scale(positions.y, 0, windowSize.h, 20, 5000), 2);
+			lowPass[user.id].frequency.rampTo(scale(positions.y, 0, windowSize.h, 20, 10000), 2);
 		}
 
 		// set reverb
@@ -535,12 +535,12 @@ entireBox.addEventListener('touchmove', function (e) {
 	}
 
 		// set filter cutoff
-	if (scale(touchLocation.pageY, 0, windowSize.h, 20, 5000) < 20) {
+	if (scale(touchLocation.pageY, 0, windowSize.h, 20, 10000) < 20) {
 		lowPass[user.id].frequency.value = 20;
-	} else if (scale(touchLocation.pageY, 0, windowSize.h, 20, 5000) > 5000) {
-		lowPass[user.id].frequency.value = 5000;
+	} else if (scale(touchLocation.pageY, 0, windowSize.h, 20, 10000) > 10000) {
+		lowPass[user.id].frequency.value = 10000;
 	} else {
-		lowPass[user.id].frequency.rampTo(scale(touchLocation.pageY, 0, windowSize.h, 20, 5000), 5);
+		lowPass[user.id].frequency.rampTo(scale(touchLocation.pageY, 0, windowSize.h, 20, 10000), 2);
 	}
 
 		// set reverb
@@ -549,7 +549,7 @@ entireBox.addEventListener('touchmove', function (e) {
 	} else if (scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, 0, 1) > 1) {
 		reverbs[user.id].roomSize.value = 1;
 	} else {
-		reverbs[user.id].roomSize.rampTo(scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, 0, 1), 5);
+		reverbs[user.id].roomSize.rampTo(scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, 0, 1), 2);
 	}
 
 		// set pan
@@ -558,7 +558,7 @@ entireBox.addEventListener('touchmove', function (e) {
 	} else if (scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, -1, 1) > 1) {
 		panners[user.id].pan.value = 1;
 	} else {
-		panners[user.id].pan.rampTo(scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, -1, 1), 5);
+		panners[user.id].pan.rampTo(scale((touchLocation.pageX - (windowSize.w / 4)), 0, windowSize.w, -1, 1), 2);
 	}
 
 	console.log("volume: " + gainNode[user.id].volume.value);
@@ -698,8 +698,8 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			div2.style.borderBottom = "1px solid black";
 			document.getElementById("textBox").prepend(div2);
 
-			const gain = new Tone.Volume(-18);
-			const filter = new Tone.BiquadFilter(2490, "lowpass");
+			const gain = new Tone.Volume(-12);
+			const filter = new Tone.BiquadFilter(4990, "lowpass");
 			const reverb = new Tone.JCReverb(0.5);
 			const pan = new Tone.Panner(0);
 			
@@ -740,12 +740,12 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			}
 
 			// set filter cutoff
-			if (scale(data.positionY, 0, data.height, 20, 5000) < 20) {
-				lowPass[data.user].frequency.value = 0;
-			} else if (scale(data.positionY, 0, data.height, 20, 5000) > 5000) {
-				lowPass[data.user].frequency.value = 5000;
+			if (scale(data.positionY, 0, data.height, 20, 10000) < 20) {
+				lowPass[data.user].frequency.value = 20;
+			} else if (scale(data.positionY, 0, data.height, 20, 10000) > 10000) {
+				lowPass[data.user].frequency.value = 10000;
 			} else {
-				lowPass[data.user].frequency.rampTo(scale(data.positionY, 0, data.height, 20, 5000), 5);
+				lowPass[data.user].frequency.rampTo(scale(data.positionY, 0, data.height, 20, 10000), 2);
 			}
 
 			// set reverb
@@ -754,7 +754,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			} else if (scale((data.positionX - (data.width / 4)), 0, data.width, 0, 1) > 1) {
 				reverbs[data.user].roomSize.value = 1;
 			} else {
-				reverbs[data.user].roomSize.rampTo(scale((data.positionX - (data.width / 4)), 0, data.width, 0, 1), 5);
+				reverbs[data.user].roomSize.rampTo(scale((data.positionX - (data.width / 4)), 0, data.width, 0, 1), 2);
 			}
 
 			// set pan
@@ -763,7 +763,7 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			} else if (scale((data.positionX - (data.width / 4)), 0, data.width, -1, 1) > 1) {
 				panners[data.user].pan.value = 1;
 			} else {
-				panners[data.user].pan.rampTo(scale((data.positionX - (data.width / 4)), 0, data.width, -1, 1), 5);
+				panners[data.user].pan.rampTo(scale((data.positionX - (data.width / 4)), 0, data.width, -1, 1), 2);
 			}
 
 			// set gain for mobile
@@ -776,12 +776,12 @@ hub.channel("moveAndPlay", null, null, function (data) {
 			}
 
 			// set filter cutoff for mobile
-			if (scale(data.positionY, 0, data.height, 20, 5000) < 20) {
-				lowPass[data.user].frequency.value = 0;
-			} else if (scale(data.positionY, 0, data.height, 20, 5000) > 5000) {
-				lowPass[data.user].frequency.value = 5000;
+			if (scale(data.positionY, 0, data.height, 20, 10000) < 20) {
+				lowPass[data.user].frequency.value = 20;
+			} else if (scale(data.positionY, 0, data.height, 20, 10000) > 10000) {
+				lowPass[data.user].frequency.value = 10000;
 			} else {
-				lowPass[data.user].frequency.rampTo(scale(data.positionY, 0, data.height, 20, 5000), 2);
+				lowPass[data.user].frequency.rampTo(scale(data.positionY, 0, data.height, 20, 10000), 2);
 			}
 
 			// set reverb for mobile
