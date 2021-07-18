@@ -1,4 +1,4 @@
-// players for audio samples
+// players for all audio samples
 const players = new Tone.Players({
 	1: "https://austinfranklin.github.io/NetArt/media/sample1.mp3",
 	2: "https://austinfranklin.github.io/NetArt/media/sample2.mp3",
