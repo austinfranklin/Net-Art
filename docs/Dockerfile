@@ -1,6 +1,6 @@
 FROM node:13-alpine
 
-RUN mkdir -p /usr/src/app
+RUN mkdir -p /usr
 
 WORKDIR /usr/src/app
 
