@@ -1,6 +1,6 @@
 FROM node:13-alpine
 
-RUN mkdir -p /usr/src/app/NexusNode.js
+RUN mkdir -p /usr/src/app/nexusNode.js
 
 WORKDIR /usr/src/app
 
