@@ -1,8 +1,8 @@
 ---
 application:
   name: "netart"
-  project: "collab.soundscape"
-  organization: "QoveryCommunity"
+  project: "net art"
+  organization: "AUSTIN FRANKLIN MUSIC"
   publicly_accessible: "true"
 routers:
 - name: "main-netart"
